@@ -1,0 +1,20 @@
+{
+  "name": "music-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mysql2": "^1.7.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "jest": "^24.9.0",
+    "mocha": "^6.2.2"
+  }
+}
