@@ -34,9 +34,9 @@ describe('songRepository', () => {
 	});
 
 	it('should delete song', async () => {
-		const songID = 12;
+		const songID = 19;
 
 		const result = await songRepository.deleteSong(songID);
-		expect(esult.affectedRows).to.equal(1);
+		expect(result.affectedRows).to.equal(1);
 	});
 });
