@@ -15,7 +15,8 @@ describe('songRepository', () => {
 		const newSong = {
 			name: 'bye world',
 			price: 13.01,
-			genre: 'non-cultural'
+			genre: 'non-cultural',
+			artistID: 1
 		};
 		const result = await songRepository.insertSong(newSong);
 		expect(result).to.be.an('object');
@@ -26,7 +27,8 @@ describe('songRepository', () => {
 			id: 2,
 			name: 'what world',
 			price: 13.02,
-			genre: 'something'
+			genre: 'something',
+			artistID: 4
 		};
 
 		const result = await songRepository.updateSong(updatedSong);
@@ -34,7 +36,7 @@ describe('songRepository', () => {
 	});
 
 	it('should delete song', async () => {
-		const songID = 19;
+		const songID = 21;
 
 		const result = await songRepository.deleteSong(songID);
 		expect(result.affectedRows).to.equal(1);

@@ -6,14 +6,14 @@ async function findAllSongs() {
 	return result;
 }
 
-async function insertSong({ name, price, genre }) {
-	const result = await db.query(QUERIES.SONGS.INSERT, [ name, price, genre ]);
+async function insertSong({ name, price, genre, artistID }) {
+	const result = await db.query(QUERIES.SONGS.INSERT, [ name, price, genre, artistID ]);
 
 	return result;
 }
 
-async function updateSong({ id, name, price, genre }) {
-	const result = await db.query(QUERIES.SONGS.UPDATE, [ name, price, genre, id ]);
+async function updateSong({ id, name, price, genre, artistID }) {
+	const result = await db.query(QUERIES.SONGS.UPDATE, [ name, price, genre, artistID, id ]);
 
 	return result;
 }
