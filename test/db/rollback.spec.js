@@ -15,4 +15,18 @@ describe('rollback', () => {
 
 		expect(noOfSongs).to.equal(noOfNewSongs);
 	});
+
+	it('should rollback after deletion', async () => {
+		const allSongs = await songRepository.findAllSongs();
+		const noOfSongs = allSongs.length;
+
+		const songID = allSongs[0].id;
+
+		await songRepository.deleteSong(songID);
+
+		const allNewSongs =  await songRepository.findAllSongs();
+		const noOfNewSongs = allNewSongs.length;
+
+		expect(noOfSongs).to.equal(noOfNewSongs);
+	});
 });

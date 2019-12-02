@@ -20,13 +20,12 @@ describe('artistRepository', () => {
 	});
 
 	it('should update artist', async () => {
-		const { id, name, country } = {
-			id: 1,
-			name: 'Sis',
-			country: 'Sisland'
-		};
+		const id = 1,
+			name = 'Sis',
+			country = 'Sisland';
+
 		const result = await artistRepository.updateArtist(id, name, country);
-		expect(result).to.be.an('object');
+		expect(result.affectedRows).to.be(1);
 	});
 
 	it('should delete artist', async () => {

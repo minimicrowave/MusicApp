@@ -3,16 +3,16 @@ const songRepository = require('../../../src/repositories/songs');
 const { closeConnection } = require('../../../src/db');
 
 describe('songRepository', () => {
-	let newSong;
+	let newSong, songList;
 	afterAll(closeConnection);
-	beforeAll(async () => {
+	beforeEach(async () => {
 		newSong = await songRepository.insertSong('Something', 0.0, 'Something Else');
 	});
 
 	it('should return all the songs', async () => {
-		const results = await songRepository.findAllSongs();
-		expect(results).to.be.an('array');
-		expect(results[0].name).to.equal('hello world');
+		songList = await songRepository.findAllSongs();
+		expect(songList).to.be.an('array');
+		expect(songList[0].name).to.equal('hello world');
 	});
 
 	it('should add song', async () => {
@@ -20,16 +20,14 @@ describe('songRepository', () => {
 	});
 
 	it('should update song', async () => {
-		const { id, name, price, genre, artistID } = {
-			id: 2,
-			name: 'what world',
-			price: 13.02,
-			genre: 'something',
-			artistID: 4
-		};
+		const id = 2,
+			name = 'what world',
+			price = 13.02,
+			genre = 'something',
+			artistID = 4;
 
 		const result = await songRepository.updateSong(id, name, price, genre, artistID);
-		expect(result).to.be.an('object');
+		expect(result.affectedRows).to.be(1);
 	});
 
 	it('should delete song', async () => {
