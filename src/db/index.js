@@ -7,10 +7,13 @@ const pool = db.createPool({ host, user, password, database });
 async function query(queryString, params) {
 	let connection = await pool.getConnection();
 
+	// Start transaction
 	await connection.query('START TRANSACTION');
 
+	// Execute query
 	const [ result ] = await connection.query(queryString, params);
 
+	// Rollback transaction
 	connection.query('ROLLBACK');
 
 	return result;
