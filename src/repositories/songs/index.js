@@ -1,27 +1,27 @@
 const db = require('../../db');
-const QUERIES = require('../../constants/queries');
+const { SONGS } = require('../../constants/queries');
+const { LIST, INSERT, UPDATE, DELETE } = SONGS;
 
-async function findAllSongs() {
-	const result = await db.query(QUERIES.SONGS.LIST);
-	return result;
+function findAllSongs() {
+	return db.query(LIST);
 }
 
-async function insertSong({ name, price, genre, artistID }) {
-	const result = await db.query(QUERIES.SONGS.INSERT, [ name, price, genre, artistID ]);
-
-	return result;
+function insertSong(name, price, genre, artistID) {
+	return db.query(INSERT, [ name, price, genre, artistID ]);
 }
 
-async function updateSong({ id, name, price, genre, artistID }) {
-	const result = await db.query(QUERIES.SONGS.UPDATE, [ name, price, genre, artistID, id ]);
-
-	return result;
+function updateSong(id, name, price, genre, artistID) {
+	return db.query(UPDATE, [ name, price, genre, artistID, id ]);
 }
 
-async function deleteSong(id) {
-	const result = await db.query(QUERIES.SONGS.DELETE, [ id ]);
-
-	return result;
+function deleteSong(id) {
+	return db.query(DELETE, [ id ]);
 }
 
-module.exports = { findAllSongs, insertSong, updateSong, deleteSong };
+module.exports = {
+	findAllSongs,
+	insertSong,
+	updateSong,
+	deleteSong,
+	closeConnection: db.closeConnection
+};

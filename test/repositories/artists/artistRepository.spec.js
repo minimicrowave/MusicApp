@@ -2,17 +2,15 @@ const { expect } = require('chai');
 const artistRepository = require('../../../src/repositories/artists');
 const { closeConnection } = require('../../../src/db');
 
-describe('songRepository', () => {
+describe('artistRepository', () => {
+	let newArtist;
 	afterAll(closeConnection);
+	beforeAll(async () => {
+		newArtist = await artistRepository.insertArtist('Bruh', 'Brotherland');
+	});
 
 	it('should add artist', async () => {
-		const newArtist = {
-			name: 'Bruh',
-			country: 'Brotherland'
-		};
-
-		const result = await artistRepository.insertArtist(newArtist);
-		expect(result).to.be.an('object');
+		expect(newArtist).to.be.an('object');
 	});
 
 	it('should return all artists', async () => {
@@ -22,19 +20,17 @@ describe('songRepository', () => {
 	});
 
 	it('should update artist', async () => {
-		const updatedArtist = {
+		const { id, name, country } = {
 			id: 1,
 			name: 'Sis',
 			country: 'Sisland'
 		};
-		const result = await artistRepository.updateArtist(updatedArtist);
+		const result = await artistRepository.updateArtist(id, name, country);
 		expect(result).to.be.an('object');
 	});
 
 	it('should delete artist', async () => {
-		const artistID = 7;
-
-		const result = await artistRepository.deleteArtist(artistID);
+		const result = await artistRepository.deleteArtist(newArtist.insertId);
 		expect(result.affectedRows).to.equal(1);
 	});
 });

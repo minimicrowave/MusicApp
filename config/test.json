@@ -1,0 +1,8 @@
+{
+	"db": {
+        "host": "localhost",
+        "user": "serenelim",
+        "password": "moomoo",
+        "database": "music"
+    }
+}

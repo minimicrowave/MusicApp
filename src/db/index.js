@@ -1,16 +1,18 @@
-const db = require('mysql2');
+const db = require('mysql2/promise');
+const config = require('config');
+const { host, user, password, database } = config.get('db');
 
-const pool = db.createPool({
-	host: 'localhost',
-	user: 'serenelim',
-	password: 'moomoo',
-	database: 'music'
-});
-
-const promisePool = pool.promise();
+const pool = db.createPool({ host, user, password, database });
 
 async function query(queryString, params) {
-	const [ result ] = await promisePool.query(queryString, params);
+	let connection = await pool.getConnection();
+
+	await connection.query('START TRANSACTION');
+
+	const [ result ] = await connection.query(queryString, params);
+
+	connection.query('ROLLBACK');
+
 	return result;
 }
 
