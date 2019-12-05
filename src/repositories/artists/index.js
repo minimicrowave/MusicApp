@@ -2,20 +2,20 @@ const db = require('../../db');
 const { ARTISTS } = require('../../constants/queries');
 const { INSERT, LIST, UPDATE, DELETE } = ARTISTS;
 
-async function insertArtist(name, country) {
+async function create(name, country) {
 	return db.query(INSERT, [ name, country ]);
 }
 
-async function findAllArtists() {
+async function findAll() {
 	return db.query(LIST);
 }
 
-async function updateArtist(id, name, country) {
+async function patch(id, name, country) {
 	return db.query(UPDATE, [ name, country, id ]);
 }
 
-async function deleteArtist(id) {
+async function remove(id) {
 	return db.query(DELETE, [ id ]);
 }
 
-module.exports = { insertArtist, findAllArtists, updateArtist, deleteArtist };
+module.exports = { create, findAll, patch, remove };

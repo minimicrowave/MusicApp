@@ -6,11 +6,11 @@ describe('songRepository', () => {
 	let newSong, songList;
 	afterAll(closeConnection);
 	beforeEach(async () => {
-		newSong = await songRepository.insertSong('Something', 0.0, 'Something Else');
+		newSong = await songRepository.create('Something', 0.0, 'Something Else');
 	});
 
 	it('should return all the songs', async () => {
-		songList = await songRepository.findAllSongs();
+		songList = await songRepository.findAll();
 		expect(songList).to.be.an('array');
 		expect(songList[0].name).to.equal('hello world');
 	});
@@ -26,12 +26,12 @@ describe('songRepository', () => {
 			genre = 'something',
 			artistID = 4;
 
-		const result = await songRepository.updateSong(id, name, price, genre, artistID);
-		expect(result.affectedRows).to.be(1);
+		const result = await songRepository.patch(id, name, price, genre, artistID);
+		expect(result.affectedRows).to.equal(1);
 	});
 
 	it('should delete song', async () => {
-		const result = await songRepository.deleteSong(newSong.insertId);
+		const result = await songRepository.remove(newSong.insertId);
 		expect(result.affectedRows).to.equal(1);
 	});
 });

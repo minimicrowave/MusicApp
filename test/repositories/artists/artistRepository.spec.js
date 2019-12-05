@@ -5,8 +5,8 @@ const { closeConnection } = require('../../../src/db');
 describe('artistRepository', () => {
 	let newArtist;
 	afterAll(closeConnection);
-	beforeAll(async () => {
-		newArtist = await artistRepository.insertArtist('Bruh', 'Brotherland');
+	beforeEach(async () => {
+		newArtist = await artistRepository.create('Bruh', 'Brotherland');
 	});
 
 	it('should add artist', async () => {
@@ -14,7 +14,7 @@ describe('artistRepository', () => {
 	});
 
 	it('should return all artists', async () => {
-		const results = await artistRepository.findAllArtists();
+		const results = await artistRepository.findAll();
 		expect(results).to.be.an('array');
 		expect(results[0].name).to.equal('Sis');
 	});
@@ -24,12 +24,12 @@ describe('artistRepository', () => {
 			name = 'Sis',
 			country = 'Sisland';
 
-		const result = await artistRepository.updateArtist(id, name, country);
-		expect(result.affectedRows).to.be(1);
+		const result = await artistRepository.patch(id, name, country);
+		expect(result.affectedRows).to.equal(1);
 	});
 
 	it('should delete artist', async () => {
-		const result = await artistRepository.deleteArtist(newArtist.insertId);
+		const result = await artistRepository.remove(newArtist.insertId);
 		expect(result.affectedRows).to.equal(1);
 	});
 });

@@ -5,26 +5,26 @@ describe('rollback', () => {
 	afterAll(songRepository.closeConnection);
 
 	it('should rollback after insertion', async () => {
-		const allSongs = await songRepository.findAllSongs();
+		const allSongs = await songRepository.findAll();
 		const noOfSongs = allSongs.length;
 
-		await songRepository.insertSong('Hello', 20, 'hi');
+		await songRepository.create('Hello', 20, 'hi');
 
-		const allNewSongs = await songRepository.findAllSongs();
+		const allNewSongs = await songRepository.findAll();
 		const noOfNewSongs = allNewSongs.length;
 
 		expect(noOfSongs).to.equal(noOfNewSongs);
 	});
 
 	it('should rollback after deletion', async () => {
-		const allSongs = await songRepository.findAllSongs();
+		const allSongs = await songRepository.findAll();
 		const noOfSongs = allSongs.length;
 
 		const songID = allSongs[0].id;
 
-		await songRepository.deleteSong(songID);
+		await songRepository.remove(songID);
 
-		const allNewSongs =  await songRepository.findAllSongs();
+		const allNewSongs =  await songRepository.findAll();
 		const noOfNewSongs = allNewSongs.length;
 
 		expect(noOfSongs).to.equal(noOfNewSongs);
