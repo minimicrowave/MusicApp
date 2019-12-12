@@ -1,7 +1,7 @@
 const { expect } = require('chai');
+const Song = require('../../../src/models/Song');
 const songRepository = require('../../../src/repositories/songs');
 const { closeConnection } = require('../../../src/db');
-const Song = require('../../../src/models/Song');
 
 describe('songRepository', () => {
 	let newSong, songList;
