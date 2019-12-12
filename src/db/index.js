@@ -5,6 +5,7 @@ const { host, user, password, database } = config.get('db');
 const pool = db.createPool({ host, user, password, database });
 
 async function query(queryString, params) {
+	console.log('env');
 	let connection = await pool.getConnection();
 
 	// Start transaction
@@ -13,8 +14,12 @@ async function query(queryString, params) {
 	// Execute query
 	const [ result ] = await connection.query(queryString, params);
 
-	// Rollback transaction
-	connection.query('ROLLBACK');
+	// Rollback or commit transaction according to environment
+	if (process.env.NODE_ENV === 'test') {
+		connection.query('ROLLBACK');
+	} else {
+		connection.query('COMMIT');
+	}
 
 	return result;
 }
