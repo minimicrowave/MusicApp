@@ -1,13 +1,18 @@
 const db = require('../../db');
+const Song = require('../../models/Song');
 const { SONGS } = require('../../constants/queries');
 const { LIST, INSERT, UPDATE, DELETE } = SONGS;
 
-function findAll() {
-	return db.query(LIST);
+async function findAll() {
+	let songList = await db.query(LIST);
+	return songList.map(({ name, price, genre, artistID }) => new Song(name, price, genre, artistID));
 }
 
-function create(name, price, genre, artistID) {
-	return db.query(INSERT, [ name, price, genre, artistID ]);
+async function create(name, price, genre, artistID) {
+	let song = await db.query(INSERT, [ name, price, genre, artistID ]);
+
+	let { savedName, savedPrice, savedGenre, savedArtistID } = song;
+	return new Song(savedName, savedPrice, savedGenre, savedArtistID);
 }
 
 function patch(id, name, price, genre, artistID) {
