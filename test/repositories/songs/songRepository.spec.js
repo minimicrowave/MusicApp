@@ -1,5 +1,4 @@
 const { expect } = require('chai');
-const Song = require('../../../src/models/Song');
 const songRepository = require('../../../src/repositories/songs');
 const { closeConnection } = require('../../../src/db');
 
@@ -14,12 +13,10 @@ describe('songRepository', () => {
 		songList = await songRepository.findAll();
 		expect(songList).to.be.an('array');
 		expect(songList[0].name).to.equal('hello world');
-		expect(songList[0]).to.be.an.instanceof(Song);
 	});
 
 	it('should add song', async () => {
 		expect(newSong).to.be.an('object');
-		expect(newSong).to.be.an.instanceof(Song);
 	});
 
 	it('should update song', async () => {
@@ -34,7 +31,7 @@ describe('songRepository', () => {
 	});
 
 	it('should delete song', async () => {
-		const result = await songRepository.remove(newSong.insertId);
+		const result = await songRepository.del(newSong.insertId);
 		expect(result.affectedRows).to.equal(1);
 	});
 });

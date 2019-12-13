@@ -1,5 +1,4 @@
 const { expect } = require('chai');
-const Artist = require('../../../src/models/Artist');
 const artistRepository = require('../../../src/repositories/artists');
 const { closeConnection } = require('../../../src/db');
 
@@ -12,14 +11,12 @@ describe('artistRepository', () => {
 
 	it('should add artist', async () => {
 		expect(newArtist).to.be.an('object');
-		expect(newArtist).to.be.an.instanceof(Artist);
 	});
 
 	it('should return all artists', async () => {
 		const results = await artistRepository.findAll();
 		expect(results).to.be.an('array');
 		expect(results[0].name).to.equal('Sis');
-		expect(results[0]).to.be.an.instanceof(Artist);
 	});
 
 	it('should update artist', async () => {
@@ -32,7 +29,7 @@ describe('artistRepository', () => {
 	});
 
 	it('should delete artist', async () => {
-		const result = await artistRepository.remove(newArtist.insertId);
+		const result = await artistRepository.del(newArtist.insertId);
 		expect(result.affectedRows).to.equal(1);
 	});
 });

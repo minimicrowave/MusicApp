@@ -22,7 +22,7 @@ describe('rollback', () => {
 
 		const songID = allSongs[0].id;
 
-		await songRepository.remove(songID);
+		await songRepository.del(songID);
 
 		const allNewSongs =  await songRepository.findAll();
 		const noOfNewSongs = allNewSongs.length;
