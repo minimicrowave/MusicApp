@@ -1,6 +1,6 @@
 class Artist {
-	constructor(name, country) {
-		Object.assign(this, { name, country });
+	constructor(id, name, country) {
+		Object.assign(this, { id, name, country });
 	}
 }
 

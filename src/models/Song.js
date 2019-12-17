@@ -1,7 +1,7 @@
 class Song {
-	constructor(name, price, genre, artistID) {
-        Object.assign(this, { name, price, genre, artistID });
-    }
+	constructor(id, name, price, genre, artist) {
+		Object.assign(this, { id, name, price, genre, artist });
+	}
 }
 
 module.exports = Song;
