@@ -1,16 +1,15 @@
 const artistRepository = require('../../repositories/artists');
 const songRepository = require('../../repositories/songs');
-const Artist = require('../../models/Artist');
+const artistBuilder = require('../../builders/artistBuilder');
 
 async function create(name, country) {
 	let newArtist = await artistRepository.create(name, country);
-	return new Artist(newArtist.id, newArtist.name, newArtist.country);
+	return artistBuilder.buildArtist(newArtist);
 }
 
 async function findAll() {
 	let artistList = await artistRepository.findAll();
-	artistList = artistList.map(({ id, name, country }) => new Artist(id, name, country));
-	return artistList;
+	return artistBuilder.buildArtists(artistList);
 }
 
 async function update(id, name, country) {
@@ -22,14 +21,17 @@ async function del(id) {
 }
 
 async function findAllWithSongs() {
-    artistList = await findAll();
-    songList = await songService.findAll();
+	let artistList = await artistRepository.findAll();
+	let songList = await songRepository.findAll();
 
-    artistList = artistList.map(artist => {
-        let artistId = artist.id;
+	let artistListWithSongs = artistList.map((artist) => {
+		let artistId = artist.id;
+		let songListByArtist = songList.filter((song) => song.artist_id === artistId);
 
-        let songListByArtist = songList.filter(song => )
-    })
+		return artistBuilder.buildArtist({ ...artist, songList: songListByArtist });
+	});
+
+	return artistListWithSongs;
 }
 
 module.exports = { create, findAll, update, del };
