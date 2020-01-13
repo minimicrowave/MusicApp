@@ -1,6 +1,7 @@
 const songRepository = require('../../repositories/songs');
 const songBuilder = require('../../builders/songBuilder');
 const artistService = require('../artists');
+const Artist = require('../../models/Artist');
 
 async function create(name, price, genre, artistID) {
 	let newSong = await songRepository.create(name, price, genre, artistID);
@@ -25,8 +26,8 @@ async function findAllWithArtists() {
 	let artistList = await artistService.findAll();
 
 	let songListWithArtists = songList.map(({ id, name, price, genre, artist_id: artistID }) => {
-		let artist = artistList.find(({ id }) => id === artistID) || null;
-		return songBuilder.buildSong(id, name, price, genre, artist);
+		let artist = artistList.find(({ id }) => id === artistID) || new Artist();
+		return songBuilder.buildSong({id, name, price, genre, artist});
 	});
 
 	return songListWithArtists;

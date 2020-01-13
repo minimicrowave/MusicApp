@@ -15,7 +15,7 @@ describe('artistService', () => {
 		expect(newArtist).to.be.an.instanceof(Artist);
     });
     
-    it('should return an array of artist instance', async() => {
+    it('should return an array of artist instances', async() => {
         let artistList = await artistService.findAll();
         expect(artistList).to.be.an('array');
         expect(artistList[0]).to.be.an.instanceof(Artist);
