@@ -34,4 +34,4 @@ async function findAllWithSongs() {
 	return artistListWithSongs;
 }
 
-module.exports = { create, findAll, update, del };
+module.exports = { create, findAll, update, del, findAllWithSongs };
