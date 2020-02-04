@@ -28,6 +28,6 @@ describe('songService', () => {
 
         let songWithArtist = songListWithArtists[0];
         expect(songWithArtist).to.be.an.instanceof(Song);
-        expect(songWithArtist.artist).to.be.an.instanceOf(Artist);
+        expect(songWithArtist.artist).to.be.undefined;
 	});
 });
