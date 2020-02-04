@@ -1,6 +1,7 @@
 const Artist = require('../models/Artist');
 
-function buildArtist({ id, name, country, songList }) {
+function buildArtist(artist) {
+	const { id, name, country, songList } = artist;
 	return new Artist(id, name, country, songList);
 }
 

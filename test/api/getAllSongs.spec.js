@@ -1,7 +1,6 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const server = require('../../src/server');
-const Song = require('../../src/models/Song');
 const songService = require('../../src/services/songs');
 
 chai.use(chaiHttp); // Chai HTTP plugin

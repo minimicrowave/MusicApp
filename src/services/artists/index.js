@@ -28,7 +28,6 @@ async function findAllWithSongs() {
 
 	let artistListWithSongs = artistList.map((artist) => {
 		let songListByArtist = songList.filter((song) => song.artist_id === artist.id);
-
 		return artistsbuilder.buildArtist({ ...artist, songList: songListByArtist });
 	});
 

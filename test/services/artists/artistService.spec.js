@@ -7,6 +7,7 @@ describe('artistService', () => {
 	let newArtist;
 
 	afterAll(closeConnection);
+	
 	beforeEach(async () => {
 		newArtist = await artistService.create('Bruh', 'Brotherland');
 	});
