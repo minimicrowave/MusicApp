@@ -1,6 +1,11 @@
-const { expect } = require('chai');
-const songsRepository = require('../../../src/repositories/songs');
+const chai = require('chai');
+const chaiAsPromised = require('chai-as-promised');
 const { closeConnection } = require('../../../src/db');
+const { DatabaseError } = require('../../../src/errors');
+const songsRepository = require('../../../src/repositories/songs');
+
+chai.use(chaiAsPromised);
+const { expect } = chai;
 
 describe('songsRepository', () => {
 	let newSong, songList;
@@ -13,6 +18,18 @@ describe('songsRepository', () => {
 		songList = await songsRepository.findAll();
 		expect(songList).to.be.an('array');
 		expect(songList[0].name).to.equal('hello world');
+	});
+
+	it('should return one song', async () => {
+		const id = 1;
+		const song = await songsRepository.find(id);
+		expect(song.name).to.equal('hello world');
+		expect(song.price).to.equal('13.00');
+	});
+
+	it('should throw DatabaseError if song does not exist', async () => {
+		const id = 0;
+		await expect(songsRepository.find(id)).to.eventually.be.rejectedWith(DatabaseError);
 	});
 
 	it('should add song', async () => {

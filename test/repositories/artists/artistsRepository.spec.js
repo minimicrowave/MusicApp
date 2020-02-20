@@ -1,6 +1,11 @@
-const { expect } = require('chai');
+const chai = require('chai');
+const chaiAsPromised = require('chai-as-promised');
 const artistsRepository = require('../../../src/repositories/artists');
+const { DatabaseError } = require('../../../src/errors');
 const { closeConnection } = require('../../../src/db');
+
+chai.use(chaiAsPromised);
+const { expect } = chai;
 
 describe('artistsRepository', () => {
 	let newArtist;
@@ -11,6 +16,18 @@ describe('artistsRepository', () => {
 
 	it('should add artist', async () => {
 		expect(newArtist).to.be.an('object');
+	});
+
+	it('should return one artist', async () => {
+		const id = 1;
+		const song = await artistsRepository.find(id);
+		expect(song.name).to.be.equal('Sis');
+		expect(song.country).to.be.equal('Sisland');
+	});
+
+	it('should throw DatabaseError if there is artist does not exist', async () => {
+		const id = 0;
+		await expect(artistsRepository.find(id)).to.eventually.be.rejectedWith(DatabaseError);
 	});
 
 	it('should return all artists', async () => {

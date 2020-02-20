@@ -1,9 +1,16 @@
 const db = require('../../db');
+const { DatabaseError } = require('../../errors');
 const { ARTISTS } = require('../../constants/queries');
-const { INSERT, LIST, UPDATE, DELETE } = ARTISTS;
+const { FIND, INSERT, LIST, UPDATE, DELETE } = ARTISTS;
 
 function create(name, country) {
 	return db.query(INSERT, [ name, country ]);
+}
+
+async function find(id) {
+	const [ artist ] = await db.query(FIND, [ id ]);
+	if (artist) return artist;
+	throw new DatabaseError(`Artist with id: ${id}`);
 }
 
 function findAll() {
@@ -18,4 +25,4 @@ function del(id) {
 	return db.query(DELETE, [ id ]);
 }
 
-module.exports = { create, findAll, patch, del };
+module.exports = { create, find, findAll, patch, del };
