@@ -6,7 +6,7 @@ const { FIND, LIST, INSERT, UPDATE, DELETE } = SONGS;
 async function find(id) {
 	const [ song ] = await db.query(FIND, [ id ]);
 	if (song) return song;
-	throw new DatabaseError(`Song with id: ${id}`);
+	throw new DatabaseError(`Song with id: ${id} does not exist.`);
 }
 
 function findAll() {

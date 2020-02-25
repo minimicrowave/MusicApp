@@ -1,11 +1,7 @@
-const chai = require('chai');
-const chaiAsPromised = require('chai-as-promised');
+const { expect } = require('chai');
 const artistsRepository = require('../../../src/repositories/artists');
 const { DatabaseError } = require('../../../src/errors');
 const { closeConnection } = require('../../../src/db');
-
-chai.use(chaiAsPromised);
-const { expect } = chai;
 
 describe('artistsRepository', () => {
 	let newArtist;
@@ -26,8 +22,13 @@ describe('artistsRepository', () => {
 	});
 
 	it('should throw DatabaseError if there is artist does not exist', async () => {
-		const id = 0;
-		await expect(artistsRepository.find(id)).to.eventually.be.rejectedWith(DatabaseError);
+		try {
+			const id = 0;
+			await artistsRepository.find(id);
+		} catch (e) {
+			expect(e).to.be.an.instanceOf(DatabaseError);
+			expect(e.message).to.equal('Artist with id: 0 does not exist.');
+		}
 	});
 
 	it('should return all artists', async () => {

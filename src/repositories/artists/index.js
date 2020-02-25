@@ -10,7 +10,7 @@ function create(name, country) {
 async function find(id) {
 	const [ artist ] = await db.query(FIND, [ id ]);
 	if (artist) return artist;
-	throw new DatabaseError(`Artist with id: ${id}`);
+	throw new DatabaseError(`Artist with id: ${id} does not exist.`);
 }
 
 function findAll() {

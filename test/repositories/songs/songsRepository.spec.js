@@ -1,11 +1,7 @@
-const chai = require('chai');
-const chaiAsPromised = require('chai-as-promised');
+const { expect } = require('chai');
 const { closeConnection } = require('../../../src/db');
 const { DatabaseError } = require('../../../src/errors');
 const songsRepository = require('../../../src/repositories/songs');
-
-chai.use(chaiAsPromised);
-const { expect } = chai;
 
 describe('songsRepository', () => {
 	let newSong, songList;
@@ -28,8 +24,13 @@ describe('songsRepository', () => {
 	});
 
 	it('should throw DatabaseError if song does not exist', async () => {
-		const id = 0;
-		await expect(songsRepository.find(id)).to.eventually.be.rejectedWith(DatabaseError);
+		try {
+			const id = 0;
+			await songsRepository.find(id);
+		} catch (e) {
+			expect(e).to.be.an.instanceOf(DatabaseError);
+			expect(e.message).to.equal('Song with id: 0 does not exist.');
+		}
 	});
 
 	it('should add song', async () => {

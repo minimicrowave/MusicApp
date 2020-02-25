@@ -20,5 +20,5 @@ describe('artistService', () => {
         let artistList = await artistService.findAll();
         expect(artistList).to.be.an('array');
         expect(artistList[0]).to.be.an.instanceof(Artist);
-    })
+	})
 });
