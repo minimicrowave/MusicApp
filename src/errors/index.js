@@ -1,8 +1,8 @@
 class DatabaseError extends Error {
-	constructor(entity) {
-		super(entity);
+	constructor(message) {
+		super(message);
 		this.name = 'DatabaseError';
-		this.message = `${entity} does not exist.`;
+		this.message = message;
 	}
 }
 

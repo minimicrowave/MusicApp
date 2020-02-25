@@ -11,5 +11,6 @@ const songsController = require('../../controllers/songs');
 // })
 
 router.get('/songs', songsController.getAllSongs);
+router.get('/songs/:id', songsController.getSong);
 
 module.exports = router;

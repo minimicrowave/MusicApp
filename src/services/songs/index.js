@@ -20,6 +20,15 @@ function del(id) {
 	return songsRepository.del(id);
 }
 
+async function findSongById(id) {
+	try {
+		let song = await songsRepository.find(id);
+		return songsBuilder.buildSong(song);
+	} catch (e) {
+		throw e;
+	}
+}
+
 async function findAllWithArtists() {
 	let songList = await songsRepository.findAll();
 	let artistList = await artistService.findAll();
@@ -34,6 +43,7 @@ module.exports = {
 	findAll,
 	update,
 	del,
+	findSongById,
 	findAllWithArtists,
 	closeConnection: songsRepository.closeConnection
 };
