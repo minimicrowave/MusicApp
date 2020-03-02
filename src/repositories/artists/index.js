@@ -1,21 +1,28 @@
 const db = require('../../db');
+const { DatabaseError } = require('../../errors');
 const { ARTISTS } = require('../../constants/queries');
-const { INSERT, LIST, UPDATE, DELETE } = ARTISTS;
+const { FIND, INSERT, LIST, UPDATE, DELETE } = ARTISTS;
 
-async function insertArtist(name, country) {
+function create(name, country) {
 	return db.query(INSERT, [ name, country ]);
 }
 
-async function findAllArtists() {
+async function find(id) {
+	const [ artist ] = await db.query(FIND, [ id ]);
+	if (artist) return artist;
+	throw new DatabaseError(`Artist with id: ${id} does not exist.`);
+}
+
+function findAll() {
 	return db.query(LIST);
 }
 
-async function updateArtist(id, name, country) {
+function patch(id, name, country) {
 	return db.query(UPDATE, [ name, country, id ]);
 }
 
-async function deleteArtist(id) {
+function del(id) {
 	return db.query(DELETE, [ id ]);
 }
 
-module.exports = { insertArtist, findAllArtists, updateArtist, deleteArtist };
+module.exports = { create, find, findAll, patch, del };
