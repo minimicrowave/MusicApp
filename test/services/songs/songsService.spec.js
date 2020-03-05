@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const songsService = require('../../../src/services/songs');
 const Song = require('../../../src/models/Song');
 const Artist = require('../../../src/models/Artist');
-const { closeConnection } = require('../../../src/db');
+const { closeConnection } = require('../../../src/db/mysql');
 const { DatabaseError } = require('../../../src/errors');
 
 describe('songsService', () => {

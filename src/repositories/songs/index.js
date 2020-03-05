@@ -31,5 +31,8 @@ module.exports = {
 	create,
 	patch,
 	del,
-	closeConnection: db.closeConnection
+	closeConnection: db.closeConnection,
+	init() {
+		return db.query(SONGS.CREATE_TABLE);
+	},
 };

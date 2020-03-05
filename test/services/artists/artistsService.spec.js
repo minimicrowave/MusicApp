@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const artistService = require('../../../src/services/artists');
 const Artist = require('../../../src/models/Artist');
-const { closeConnection } = require('../../../src/db');
+const { closeConnection } = require('../../../src/db/mysql');
 
 describe('artistService', () => {
 	let newArtist;

@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const artistsRepository = require('../../../src/repositories/artists');
 const { DatabaseError } = require('../../../src/errors');
-const { closeConnection } = require('../../../src/db');
+const { closeConnection } = require('../../../src/db/mysql');
 
 describe('artistsRepository', () => {
 	let newArtist;

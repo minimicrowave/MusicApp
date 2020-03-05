@@ -1,6 +1,6 @@
 const { expect } = require('chai');
 const discountsService = require('../../../src/services/discounts');
-const { closeConnection } = require('../../../src/db');
+const { closeConnection } = require('../../../src/db/mysql');
 const Song = require('../../../src/models/Song');
 
 describe('discountsService', () => {

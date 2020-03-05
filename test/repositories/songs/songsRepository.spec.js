@@ -6,8 +6,11 @@ const songsRepository = require('../../../src/repositories/songs');
 describe('songsRepository', () => {
 	let newSong, songList;
 	afterAll(closeConnection);
+
+	beforeAll(songsRepository.init);
+
 	beforeEach(async () => {
-		newSong = await songsRepository.create('Something', 0.0, 'Something Else');
+		newSong = await songsRepository.create('hello world', 13.00, 'Something Else');
 	});
 
 	it('should return all the songs', async () => {
@@ -20,7 +23,7 @@ describe('songsRepository', () => {
 		const id = 1;
 		const song = await songsRepository.find(id);
 		expect(song.name).to.equal('hello world');
-		expect(song.price).to.equal('13.00');
+		expect(song.price).to.equal(13.00);
 	});
 
 	it('should throw DatabaseError if song does not exist', async () => {
@@ -45,7 +48,7 @@ describe('songsRepository', () => {
 			artistID = 4;
 
 		const result = await songsRepository.patch(id, name, price, genre, artistID);
-		expect(result.affectedRows).to.equal(1);
+		expect(result).to.equal(1);
 	});
 
 	it.skip('should delete song', async () => {
