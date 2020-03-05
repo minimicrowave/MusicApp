@@ -1,5 +1,5 @@
 const { expect } = require('chai');
-const db = require('../../src/db');
+const db = require('../../src/db/mysql');
 
 describe('db', () => {
 	describe('.query()', () => {

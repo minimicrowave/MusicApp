@@ -4,19 +4,26 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test jest"
+    "test": "NODE_ENV=test jest --watchAll --verbose"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "chai-as-promised": "^7.1.1",
     "config": "^3.2.4",
     "cross-env": "^6.0.3",
-    "mysql2": "^1.7.0"
+    "express": "^4.17.1",
+    "mysql2": "^1.7.0",
+    "sqlite3": "^4.1.1"
   },
   "devDependencies": {
+    "alasql": "^0.5.5",
     "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "jest": "^24.9.0",
-    "mocha": "^6.2.2"
+    "mocha": "^6.2.2",
+    "sqlite": "^3.0.3"
   }
 }
